@@ -214,6 +214,11 @@ pod:
       tolerations:
         - key: node-role.kubernetes.io/master
           operator: Exists
+    mariadb_backup:
+      enabled: false
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          operator: Exists
 
 dependencies:
   dynamic:
