@@ -208,6 +208,12 @@ pod:
         limits:
           memory: "1024Mi"
           cpu: "2000m"
+  tolerations:
+    server:
+      enabled: false
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          operator: Exists
 
 dependencies:
   dynamic:
