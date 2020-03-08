@@ -219,6 +219,16 @@ pod:
       tolerations:
         - key: node-role.kubernetes.io/master
           operator: Exists
+    ingress:
+      enabled: false
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          operator: Exists
+    error_pages:
+      enabled: false
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          operator: Exists
 
 dependencies:
   dynamic:

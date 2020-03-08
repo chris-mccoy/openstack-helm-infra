@@ -146,6 +146,9 @@ spec:
 {{ tuple $envAll "mariadb" "ingress" | include "helm-toolkit.snippets.kubernetes_pod_anti_affinity" | indent 8 }}
       nodeSelector:
         {{ .Values.labels.ingress.node_selector_key }}: {{ .Values.labels.ingress.node_selector_value }}
+{{- if $envAll.Values.pod.tolerations.ingress.enabled }}
+{{- tuple $envAll "ingress" | include "helm-toolkit.snippets.kubernetes_tolerations" | indent 6 }}
+{{- end }}
       terminationGracePeriodSeconds: 60
       initContainers:
 {{ tuple $envAll "ingress" list | include "helm-toolkit.snippets.kubernetes_entrypoint_init_container" | indent 8 }}
