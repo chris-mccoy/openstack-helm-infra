@@ -50,6 +50,9 @@ spec:
       restartPolicy: OnFailure
       nodeSelector:
 {{ toYaml $nodeSelector | indent 8 }}
+{{- if $envAll.Values.pod.tolerations.jobs.image_repo_sync.enabled | default false }}
+{{- tuple $envAll "image_repo_sync" | include "helm-toolkit.snippets.kubernetes_job_tolerations" | indent 6 }}
+{{- end }}
       initContainers:
 {{ tuple $envAll "image_repo_sync" list | include "helm-toolkit.snippets.kubernetes_entrypoint_init_container"  | indent 8 }}
       containers:

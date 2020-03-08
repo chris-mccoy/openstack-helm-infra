@@ -58,6 +58,9 @@ spec:
       restartPolicy: OnFailure
       nodeSelector:
 {{ toYaml $nodeSelector | indent 8 }}
+{{- if $envAll.Values.pod.tolerations.jobs.bootstrap.enabled | default false }}
+{{- tuple $envAll "bootstrap" | include "helm-toolkit.snippets.kubernetes_job_tolerations" | indent 6 }}
+{{- end }}
       initContainers:
 {{ tuple $envAll "bootstrap" list | include "helm-toolkit.snippets.kubernetes_entrypoint_init_container"  | indent 8 }}
       containers:

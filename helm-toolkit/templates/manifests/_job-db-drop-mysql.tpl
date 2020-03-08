@@ -60,6 +60,9 @@ spec:
       restartPolicy: OnFailure
       nodeSelector:
 {{ toYaml $nodeSelector | indent 8 }}
+{{- if $envAll.Values.pod.tolerations.jobs.db_drop.enabled | default false }}
+{{- tuple $envAll "db_drop" | include "helm-toolkit.snippets.kubernetes_job_tolerations" | indent 6 }}
+{{- end }}
       initContainers:
 {{ tuple $envAll "db_drop" list | include "helm-toolkit.snippets.kubernetes_entrypoint_init_container" | indent 8 }}
       containers:
