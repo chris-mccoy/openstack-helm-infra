@@ -50,6 +50,9 @@ spec:
       serviceAccountName: {{ $rcControllerName | quote }}
       nodeSelector:
         {{ $envAll.Values.labels.prometheus_rabbitmq_exporter.node_selector_key }}: {{ $envAll.Values.labels.prometheus_rabbitmq_exporter.node_selector_value | quote }}
+{{- if $envAll.Values.pod.tolerations.exporter.enabled }}
+{{- tuple $envAll "prometheus_rabbitmq_exporter" | include "helm-toolkit.snippets.kubernetes_tolerations" | indent 6 }}
+{{- end }}
       terminationGracePeriodSeconds: {{ $envAll.Values.pod.lifecycle.termination_grace_period.prometheus_rabbitmq_exporter.timeout | default "30" }}
       initContainers:
 {{ tuple $envAll "prometheus_rabbitmq_exporter" list | include "helm-toolkit.snippets.kubernetes_entrypoint_init_container" | indent 8 }}
